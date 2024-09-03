@@ -89,8 +89,9 @@ const startBot = async () => {
             // Respond only if the bot is 'on'
             if (botStatus === "on") {
                 await sock.sendMessage(sender, {
-                    text: `I am currently busy. I will respond to you as soon as possible.${WATERMARK}`,
-                });
+                       text: "*I am currently busy*. *I will respond to you as soon as possible*.",
+                    });
+                }, 600000); // 5000 milliseconds = 5 seconds
             }
         }
     });
