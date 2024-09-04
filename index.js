@@ -91,7 +91,7 @@ const startBot = async () => {
                 await sock.sendMessage(sender, {
                        text: "*I am currently busy*. *I will respond to you as soon as possible*.",
                     });
-            }
+            
             }
         }
     });
