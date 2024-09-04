@@ -112,16 +112,16 @@ const startBot = async () => {
             }
         }
 
-        // Button response handling
-        if (msg.message.buttonsResponseMessage) {
-            const selectedButton = msg.message.buttonsResponseMessage.selectedButtonId;
+        if (msg.message && msg.message.buttonsResponseMessage) {
+    const selectedButton = msg.message.buttonsResponseMessage.selectedButtonId;
 
-            if (selectedButton === 'btn1') {
-                await sock.sendMessage(sender, { text: 'You selected Option 1' });
-            } else if (selectedButton === 'btn2') {
-                await sock.sendMessage(sender, { text: 'You selected Option 2' });
-            }
-        }
+    if (selectedButton === 'btn1') {
+        await sock.sendMessage(sender, { text: 'You selected Option 1' });
+    } else if (selectedButton === 'btn2') {
+        await sock.sendMessage(sender, { text: 'You selected Option 2' });
+    }
+}
+
     });
 
     // Function to fetch all contacts
