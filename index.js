@@ -2,13 +2,13 @@ const {
     default: makeWASocket,
     useMultiFileAuthState,
     DisconnectReason,
+    delay
 } = require("@whiskeysockets/baileys");
 const qrcode = require("qrcode-terminal");
 const cron = require("node-cron");
 const axios = require("axios");
 
 const OWNER_NUMBER = "94755773910@s.whatsapp.net";
-
 let botStatus = "on"; // Initial bot status: 'on' or 'off'
 
 // Watermark text
@@ -88,10 +88,38 @@ const startBot = async () => {
 
             // Respond only if the bot is 'on'
             if (botStatus === "on") {
+                // Create buttons
+                const buttons = [
+                    { buttonId: 'btn1', buttonText: { displayText: 'Option 1' }, type: 1 },
+                    { buttonId: 'btn2', buttonText: { displayText: 'Option 2' }, type: 1 }
+                ];
+
+                const buttonMessage = {
+                    contentText: "*I am currently busy*. *I will respond to you as soon as possible*.",
+                    footerText: 'Please select an option:',
+                    buttons: buttons,
+                    headerType: 1
+                };
+
+                await sock.sendMessage(sender, buttonMessage);
+
+                // Wait for 10 minutes before sending another message
+                await delay(10 * 60 * 1000);
+
                 await sock.sendMessage(sender, {
-                       text: "*I am currently busy*. *I will respond to you as soon as possible*.",
-                    });
-                }, 600000); // 5000 milliseconds = 5 seconds
+                    text: "This is an automated follow-up after 10 minutes."
+                });
+            }
+        }
+
+        // Button response handling
+        if (msg.message.buttonsResponseMessage) {
+            const selectedButton = msg.message.buttonsResponseMessage.selectedButtonId;
+
+            if (selectedButton === 'btn1') {
+                await sock.sendMessage(sender, { text: 'You selected Option 1' });
+            } else if (selectedButton === 'btn2') {
+                await sock.sendMessage(sender, { text: 'You selected Option 2' });
             }
         }
     });
