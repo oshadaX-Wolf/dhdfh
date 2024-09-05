@@ -12,7 +12,7 @@ const OWNER_NUMBER = "94755773910@s.whatsapp.net";
 let botStatus = "on"; // Initial bot status: 'on' or 'off'
 
 // Watermark text
-const WATERMARK = "\n\nThis is coded AI-based WhatsApp bot";
+const WATERMARK = "\n\n'''This is coded AI-based WhatsApp bot'''";
 
 // Function to fetch a random quote from Quotable API
 const fetchRandomQuote = async () => {
@@ -89,9 +89,8 @@ const startBot = async () => {
             // Respond only if the bot is 'on'
             if (botStatus === "on") {
                 await sock.sendMessage(sender, {
-                       text: "*I am currently busy*. *I will respond to you as soon as possible*.",
-                    });
-            
+                    text: `I am currently busy. I will respond to you as soon as possible.${WATERMARK}`,
+                });
             }
         }
     });
@@ -130,13 +129,13 @@ const startBot = async () => {
         let url = "";
         if (type === "latest") {
             url =
-                "https://newsapi.org/v2/everything?q=latest&apiKey=7c050befeb3a4fe4a7f3d87cabd7dbd1";
+                "https://newsapi.org/v2/everything?q=latest&apiKey=YOUR_API_KEY";
         } else if (type === "top") {
             url =
-                "https://newsapi.org/v2/top-headlines?country=lk&language=si&apiKey=7c050befeb3a4fe4a7f3d87cabd7dbd1";
+                "https://newsapi.org/v2/top-headlines?country=lk&language=si&apiKey=YOUR_API_KEY";
         } else if (type === "world") {
             url =
-                "https://newsapi.org/v2/top-headlines?category=general&language=si&apiKey=7c050befeb3a4fe4a7f3d87cabd7dbd1";
+                "https://newsapi.org/v2/top-headlines?category=general&language=si&apiKey=YOUR_API_KEY";
         }
 
         try {
